@@ -1,0 +1,270 @@
+/* style.css
+   Estética duotono blanco/negro, tipografía elegante.
+   Cambia variables :root para personalizar colores y tamaños.
+*/
+
+/* ------------------------ */
+/* VARIABLES (fácil personalizar) */
+:root{
+  --bg: #ffffff;           /* fondo por defecto (blanco) */
+  --fg: #000000;           /* texto por defecto (negro) */
+  --muted: #666666;
+  --card-w: 880px;
+  --max-w: 1100px;
+  --gap: 1.6rem;
+  --serif: "Playfair Display", Georgia, serif;
+  --script: "Dancing Script", "Comic Sans MS", cursive;
+  --transition: 450ms cubic-bezier(.2,.9,.2,1);
+}
+
+/* ---------------------- */
+/* RESET y base */
+*{box-sizing:border-box}
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:var(--serif);
+  background:var(--bg);
+  color:var(--fg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.6;
+}
+
+/* Página centrada */
+.centered-card{
+  max-width:var(--card-w);
+  width:calc(100% - 3rem);
+  margin:6vh auto;
+  padding:3.2rem;
+  display:flex;
+  flex-direction:column;
+  gap:var(--gap);
+  align-items:center;
+  text-align:center;
+}
+
+/* Title */
+.title{
+  font-size:3rem;
+  margin:0;
+  letter-spacing:0.03em;
+  font-weight:600;
+}
+
+/* Subtitle */
+.subtitle{
+  margin:0;
+  color:var(--muted);
+  font-size:0.95rem;
+  font-weight:300;
+}
+
+/* Buttons */
+.buttons{display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap; justify-content:center}
+.btn{
+  text-decoration:none;
+  padding:0.9rem 1.6rem;
+  border-radius:12px;
+  font-weight:600;
+  letter-spacing:0.02em;
+  transition:transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+.btn:hover{transform:translateY(-4px)}
+.btn-white{
+  background:var(--bg);
+  color:var(--fg);
+  border:1px solid #e6e6e6;
+}
+.btn-black{
+  background:var(--fg);
+  color:var(--bg);
+  border:1px solid rgba(255,255,255,0.04);
+}
+
+/* tiny footer */
+.tiny{font-size:0.85rem; color:var(--muted)}
+
+/* back link */
+a.back{
+  position:fixed;
+  left:1rem;
+  top:1rem;
+  text-decoration:none;
+  color:var(--fg);
+  font-weight:500;
+  opacity:0.8;
+}
+a.back:hover{opacity:1}
+
+/* ------------------------- */
+/* LETTER styles (shared) */
+.letter{
+  width:100%;
+  max-width:680px;
+  text-align:left;
+  margin-top:1rem;
+  padding:2rem;
+  background:transparent;
+  border-radius:14px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+}
+
+/* Lines (Blanco) */
+.line{
+  display:block;
+  opacity:0;
+  transform: translateY(8px);
+  font-size:1.15rem;
+  margin:0.4rem 0;
+  animation: fadeInUp 900ms forwards;
+}
+
+/* usa nth-child para retardos distintos: */
+.letter .line:nth-child(1){ animation-delay: 200ms; }
+.letter .line:nth-child(2){ animation-delay: 900ms; }
+.letter .line:nth-child(3){ animation-delay: 1600ms; }
+.letter .line:nth-child(4){ animation-delay: 2300ms; }
+.letter .line:nth-child(5){ animation-delay: 3000ms; }
+
+/* firma en script */
+.signature{
+  margin-top:1.2rem;
+  font-family:var(--script);
+  font-size:1.15rem;
+  display:inline-block;
+}
+
+/* fade in keyframes */
+@keyframes fadeInUp{
+  to{opacity:1; transform:none}
+}
+
+/* ------------------------- */
+/* NEGRO (estilos especiales) */
+.page.negro{
+  background:#000;
+  color:#fafafa;
+}
+.page.negro .centered-card{ color: #fff; }
+.page.negro .section-desc{ color: #ddd; }
+
+/* fragmentos */
+.frag{
+  display:inline-block;
+  font-size:1.12rem;
+  margin:0.35rem 0;
+  position:relative;
+}
+
+/* glitchable: animación ligera */
+.glitchable{
+  /* por defecto se ve normal; script.js añade clase 'glitch' para activar efecto */
+  transition:all 250ms var(--transition);
+}
+
+/* strike (tachado animado) */
+.strike{
+  position:relative;
+  text-decoration:none;
+}
+.strike::after{
+  content:'';
+  position:absolute;
+  left:0;
+  right:100%;
+  top:50%;
+  height:2px;
+  background:currentColor;
+  transform:translateY(-50%);
+  transition:right 700ms cubic-bezier(.2,.9,.2,1);
+  opacity:0.9;
+}
+/* al cargar, animamos para que aparezca el tachado */
+body.page.negro .strike::after{
+  right:0;
+}
+
+/* glitch visual (clones / color offset) */
+.glitch{
+  position:relative;
+  color:inherit;
+  /* duplicate layers via pseudo elements */
+}
+.glitch::before,
+.glitch::after{
+  content: attr(data-text);
+  position:absolute;
+  left:0; top:0;
+  width:100%;
+  clip:rect(0,9999px,0,0);
+}
+.glitch::before{
+  transform: translate3d(2px, -1px, 0);
+  opacity:0.8;
+}
+.glitch::after{
+  transform: translate3d(-2px, 1px, 0);
+  opacity:0.6;
+}
+/* cuando se añade .is-glitch activamos */
+.is-glitch.glitch{
+  animation: glitchShift 900ms infinite steps(2);
+}
+@keyframes glitchShift{
+  0%{ transform:none; }
+  10%{ transform:translateX(-1px) skewX(-1deg) }
+  20%{ transform:none; }
+  30%{ transform:translateX(1px) skewX(1deg) }
+  40%{ transform:none; }
+  100%{ transform:none; }
+}
+
+/* ------------------------- */
+/* AUDIO block */
+.audio-block{
+  margin-top:1.6rem;
+  display:flex;
+  flex-direction:column;
+  gap:0.6rem;
+  align-items:center;
+}
+.file-label{ font-size:0.95rem; color:var(--muted) }
+.file-input{ cursor:pointer; }
+
+/* <audio> styling minimal */
+audio{ width:100%; max-width:560px; outline:none; }
+
+/* ------------------------- */
+/* Section titles */
+.section-title{
+  font-size:1.8rem;
+  margin:0;
+  letter-spacing:0.02em;
+  font-weight:600;
+}
+.section-desc{ margin:0; color:var(--muted); font-size:0.95rem }
+
+/* ------------------------- */
+/* PAGE-SPECIFIC color tweaks */
+.page.blanco{
+  background: #fff;
+  color: #111;
+}
+.page.blanco .centered-card{ color: #111; }
+
+/* For negro page, override some variables */
+.page.negro { --bg: #000; --fg: #fff; }
+
+/* ------------------------- */
+/* RESPONSIVE */
+@media (max-width:768px){
+  .centered-card{ margin:5vh 1rem; padding:1.4rem; width:calc(100% - 2rem) }
+  .title{ font-size:2.2rem }
+  .letter{ padding:1.2rem; }
+  .btn{ padding:0.7rem 1rem; border-radius:10px }
+}
+
+/* Accessibility / small helper */
+.tiny{ font-size:0.85rem; color:var(--muted) }
