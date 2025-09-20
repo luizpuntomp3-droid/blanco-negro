@@ -268,3 +268,25 @@ audio{ width:100%; max-width:560px; outline:none; }
 
 /* Accessibility / small helper */
 .tiny{ font-size:0.85rem; color:var(--muted) }
+
+/* Introductorio en index */
+.intro {
+  margin: 1.5rem 0 2rem;
+  max-width: 600px;
+}
+.intro-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  font-style: italic;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+}
+.intro-text strong {
+  display: block;
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
