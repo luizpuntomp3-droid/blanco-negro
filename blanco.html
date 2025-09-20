@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Blanco — Blanco / Negro !</title>
+
+  <!-- Misma tipografía para coherencia -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page blanco">
+
+  <a class="back" href="index.html" aria-label="Volver">← Volver</a>
+
+  <main class="centered-card">
+    <h2 class="section-title">Blanco</h2>
+    <p class="section-desc">Carta romántica — animación suave línea por línea</p>
+
+    <!-- Carta: cada línea envuelta en una línea para poder animarlas secuencialmente -->
+    <article class="letter">
+      <!-- Personaliza el texto aquí -->
+      <span class="line">Hoy me descubrí buscándote en todo.</span>
+      <span class="line">En las luces de la calle, en los mensajes que nunca llegan.</span>
+      <span class="line">Dependo de tu voz, de tus gestos, de esa forma tuya de existir.</span>
+      <span class="line">Y si me pidieras la luna, te juro que saldría a buscar una escalera.</span>
+      <span class="line signature">Tuyo, sin que lo sepas.</span>
+    </article>
+
+    <!-- PLAYER: puedes sustituir el archivo por confesion.mp3 en la carpeta o subir un mp3 desde el input -->
+    <div class="audio-block">
+      <label class="file-label">Cargar audio (ej: confesion.mp3)</label>
+      <input class="file-input" id="audio-file-blanco" type="file" accept="audio/*">
+      <audio id="audio-blanco" controls preload="none">
+        <!-- Ruta por defecto: puedes poner confesion.mp3 en la misma carpeta y se cargará -->
+        <source src="confesion.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+      </audio>
+      <small class="tiny">Sugerencia: si subes un archivo desde aquí, se reproducirá localmente en tu navegador.</small>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
